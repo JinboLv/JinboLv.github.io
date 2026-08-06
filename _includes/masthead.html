@@ -1,0 +1,26 @@
+<header class="masthead" id="masthead">
+  <div class="masthead__inner-wrap">
+    <a class="site-brand" href="{{ '/' | relative_url }}" aria-label="Back to page top">
+      <span class="site-brand__mark" aria-hidden="true">JL</span>
+      <span class="site-brand__name">{{ site.author.name | default: site.title }}</span>
+    </a>
+
+    <nav class="site-navigation" aria-label="Main navigation">
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-label="Open navigation menu">
+        <span></span><span></span>
+      </button>
+      <ul class="site-menu" id="site-menu">
+        {% for link in site.data.navigation.main %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme">
+      <span class="theme-toggle__sun" aria-hidden="true">☀</span>
+      <span class="theme-toggle__moon" aria-hidden="true">☾</span>
+    </button>
+  </div>
+</header>
+
+<button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top" title="Back to top">↑</button>

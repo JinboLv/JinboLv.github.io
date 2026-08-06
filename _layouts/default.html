@@ -1,0 +1,35 @@
+---
+---
+
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}" class="no-js">
+  <head>
+    {% include head.html %}
+    {% include head/custom.html %}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    {% include browser-upgrade.html %}
+    {% include masthead.html %}
+
+    <div class="ambient ambient--one" aria-hidden="true"></div>
+    <div class="ambient ambient--two" aria-hidden="true"></div>
+
+    <main id="main" role="main">
+      {% include sidebar.html %}
+      <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+        {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+        <div class="page__inner-wrap">
+          <div class="page__content" id="main-content" itemprop="text">
+            {{ content }}
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>© {{ 'now' | date: '%Y' }} {{ site.author.name | default: site.title }} <span>·</span> Built for curiosity.</p>
+    </footer>
+    {% include scripts.html %}
+  </body>
+</html>

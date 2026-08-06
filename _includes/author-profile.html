@@ -1,0 +1,37 @@
+{% if page.author and site.data.authors[page.author] %}
+  {% assign author = site.data.authors[page.author] %}
+{% else %}
+  {% assign author = site.author %}
+{% endif %}
+
+<aside itemscope itemtype="https://schema.org/Person" class="profile-card">
+  <div class="profile-card__topline"><span></span> Academic Profile</div>
+
+  {% if author.avatar and author.avatar != "" %}
+    <div class="profile-card__avatar">
+      <img src="{{ author.avatar | relative_url }}" alt="{{ author.name }}">
+    </div>
+  {% else %}
+    <div class="profile-card__avatar profile-card__avatar--placeholder" aria-label="Profile image preparing">
+      <span>W</span>
+    </div>
+  {% endif %}
+
+  <div class="profile-card__identity">
+    <h2 itemprop="name">{{ author.name | default: "preparing" }}</h2>
+    {% if author.bio %}<p itemprop="description">{{ author.bio }}</p>{% else %}<p>preparing</p>{% endif %}
+  </div>
+
+  <dl class="profile-card__meta">
+    <div><dt>BASE</dt><dd>{{ author.location | default: "preparing" }}</dd></div>
+    <div><dt>AFFILIATION</dt><dd>{{ author.affiliation | default: "preparing" }}</dd></div>
+  </dl>
+
+  <div class="profile-card__links" aria-label="Profile links">
+    {% if author.email %}<a href="mailto:{{ author.email }}" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i><span>Email</span></a>{% endif %}
+    {% if author.github %}<a href="https://github.com/{{ author.github }}" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>{% endif %}
+    {% if author.linkedin %}<a href="{{ author.linkedin }}" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span>LinkedIn</span></a>{% endif %}
+    {% if author.googlescholar %}<a href="{{ author.googlescholar }}" aria-label="Google Scholar"><i class="fas fa-graduation-cap" aria-hidden="true"></i><span>Scholar</span></a>{% endif %}
+    {% if author.orcid %}<a href="{{ author.orcid }}" aria-label="ORCID"><i class="ai ai-orcid" aria-hidden="true"></i><span>ORCID</span></a>{% endif %}
+  </div>
+</aside>

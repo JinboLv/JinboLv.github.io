@@ -1,0 +1,17 @@
+<meta charset="utf-8">
+{% include seo.html %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f7fb">
+<meta name="color-scheme" content="light dark">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js';
+  try {
+    var savedTheme = localStorage.getItem('site-theme');
+    var preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme || preferredTheme);
+  } catch (error) {}
+</script>
+
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/academicons.css' | relative_url }}">

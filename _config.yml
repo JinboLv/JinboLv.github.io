@@ -1,0 +1,68 @@
+title: "Jinbo Lv"
+description: "Personal Homepage"
+url: "https://jinbolv.github.io"
+baseurl: ""
+repository: "JinboLv/JinboLv.github.io"
+lang: "en"
+
+google_analytics_id:
+google_site_verification:
+bing_site_verification:
+baidu_site_verification:
+
+author:
+  name: "Jinbo Lv"
+  # avatar: "/images/profile.jpg"
+  avatar:
+  bio: "Master, School of Vehicle and Mobility, Tsinghua University"
+  location: "Beijing, China"
+  affiliation: "Tsinghua University"
+  email: "jinbo2277@gmail.com"
+  github: "JinboLv"
+  googlescholar:
+  linkedin: "https://www.linkedin.com/in/jinbo-lv-126a39394/"
+  dblp:
+  orcid: "https://orcid.org/0009-0003-8715-2663"
+
+include:
+  - _pages
+
+exclude:
+  - .bundle
+  - .jekyll-cache
+  - .sass-cache
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+
+encoding: "utf-8"
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: default
+      author_profile: true
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+permalink: /:categories/:title/
+timezone: Asia/Shanghai
+
+plugins:
+  - jekyll-feed
+  - jekyll-redirect-from
+  - jekyll-sitemap
+
+compress_html:
+  clippings: all
+  ignore:
+    envs: development

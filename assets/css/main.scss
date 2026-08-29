@@ -950,6 +950,86 @@ button:focus-visible {
 .timeline-item h3 { color: var(--ink); font-size: 0.96rem; }
 .timeline-item p { color: var(--ink-soft); font-size: 0.82rem; }
 
+/* Internships */
+.internship-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.internship-card {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  transition: transform 0.35s var(--ease-out), border-color 0.25s ease, box-shadow 0.35s ease;
+}
+
+.internship-card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-4px);
+}
+
+.internship-card__logo {
+  display: grid;
+  place-items: center;
+  min-height: 4.5rem;
+  padding: 1rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-solid);
+}
+
+.internship-card__logo img {
+  grid-area: 1 / 1;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.internship-card__logo-dark { display: none !important; }
+[data-theme="dark"] .internship-card__logo-light { display: none; }
+[data-theme="dark"] .internship-card__logo-dark { display: block !important; }
+
+.page__content .internship-card__content h3 {
+  margin: 0 0 0.08rem;
+  color: var(--ink);
+  font-size: 1.08rem;
+  line-height: 1.4;
+}
+
+.internship-card__content p { margin: 0; }
+
+.internship-card__company {
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
+.internship-card__company span,
+.internship-card__meta { color: var(--ink-soft); }
+
+.internship-card__meta {
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.page__content .internship-card__work {
+  margin: 0.7rem 0 0;
+  padding: 0;
+  color: var(--ink);
+  list-style: none;
+}
+
+.page__content .internship-card__work li {
+  margin: 0.05rem 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
 /* Project cards */
 .project-grid {
   display: grid;
@@ -1340,6 +1420,8 @@ button:focus-visible {
   .section-heading--with-note { grid-template-columns: 2.4rem 1fr; }
   .section-heading--with-note > p { display: none; }
   .timeline-item { grid-template-columns: 1fr; gap: 0.15rem; }
+  .internship-card { grid-template-columns: 5rem minmax(0, 1fr); gap: 1rem; padding: 1rem; }
+  .internship-card__logo { min-height: 3.6rem; padding: 0.8rem 0.6rem; }
   .publication-item { grid-template-columns: 1fr; gap: 0.35rem; }
   .page__content .education-list li { grid-template-columns: 1fr; gap: 0.3rem; padding-left: 2rem; }
   .journey-grid { grid-template-columns: 1fr; }

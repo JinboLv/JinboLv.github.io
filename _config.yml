@@ -12,8 +12,7 @@ baidu_site_verification:
 
 author:
   name: "Jinbo Lv"
-  # avatar: "/images/profile.jpg"
-  avatar:
+  avatar: "/assets/images/ljb.jpg"
   bio: "Master, School of Vehicle and Mobility, Tsinghua University"
   location: "Beijing, China"
   affiliation: "Tsinghua University"

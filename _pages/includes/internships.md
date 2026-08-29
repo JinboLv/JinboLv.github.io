@@ -18,12 +18,13 @@
       </div>
 
       <div class="internship-card__content">
-        <h3>Research and Development Intern</h3>
-        <p class="internship-card__company">Simplexity Robotics <span>· Internship</span></p>
+        <h3 class="internship-card__company">
+          <a href="https://www.simplexityrobotics.com/#home" target="_blank" rel="noopener noreferrer">Simplexity Robotics</a>
+        </h3>
+        <p class="internship-card__position">Research and Development Intern</p>
         <p class="internship-card__meta">
-          <time datetime="2026-06">Jun 2026</time> – <time datetime="2026-08">Aug 2026</time> · 3 mos
+          <time datetime="2026-06">Jun 2026</time> – <time datetime="2026-08">Aug 2026</time> · Shanghai, China
         </p>
-        <p class="internship-card__meta">Shanghai, China · On-site</p>
 
         <ul class="internship-card__work" aria-label="Responsibilities">
           <li>Cloud-based Models</li>

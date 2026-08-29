@@ -996,24 +996,34 @@ button:focus-visible {
 [data-theme="dark"] .internship-card__logo-dark { display: block !important; }
 
 .page__content .internship-card__content h3 {
-  margin: 0 0 0.08rem;
-  color: var(--ink);
+  margin: 0;
   font-size: 1.08rem;
   line-height: 1.4;
 }
 
 .internship-card__content p { margin: 0; }
 
-.internship-card__company {
+.page__content .internship-card__company a {
+  color: var(--brand-deep);
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.page__content .internship-card__company a:hover {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.internship-card__position {
   color: var(--ink);
   font-size: 0.92rem;
 }
 
-.internship-card__company span,
-.internship-card__meta { color: var(--ink-soft); }
-
 .internship-card__meta {
+  color: var(--ink-soft);
   font-size: 0.84rem;
+  font-style: italic;
   line-height: 1.55;
 }
 

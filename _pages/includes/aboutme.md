@@ -1,6 +1,5 @@
 <section class="home-section reveal-section" id="about" aria-labelledby="about-title">
   <header class="section-heading">
-    <span class="section-heading__index">01</span>
     <div>
       <h2 id="about-title">About Me</h2>
     </div>
@@ -8,8 +7,9 @@
 
   <div class="about-grid">
     <div class="about-copy">
-      <p class="lead-copy">I am currently a master's student at the School of Vehicle and Mobility, Tsinghua University.</p>
-      <p>I received my bachelor's degree from the School of Automotive Engineering, Harbin Institute of Technology. My research interests include Autonomous Driving, Computer Vision, Vision-Language Models (VLMs), and Embodied AI.</p>
+      <p class="lead-copy">I am currently a master's student at the <a href="https://eng.svm.tsinghua.edu.cn/index.htm" target="_blank" rel="noopener noreferrer">School of Vehicle and Mobility</a>, <a href="https://www.tsinghua.edu.cn/" target="_blank" rel="noopener noreferrer">Tsinghua University</a>.</p>
+      <p>I received my bachelor's degree from the School of Automotive Engineering, Harbin Institute of Technology. </p>
+      <p>My research interests include Autonomous Driving, Computer Vision, Vision-Language Models (VLMs), and Embodied AI.</p>
     </div>
     <aside class="focus-card">
       <span class="focus-card__label">Research Focus</span>

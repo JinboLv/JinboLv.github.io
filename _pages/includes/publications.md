@@ -1,6 +1,5 @@
 <section class="home-section reveal-section" id="publications" aria-labelledby="publications-title">
   <header class="section-heading">
-    <span class="section-heading__index">03</span>
     <div>
       <h2 id="publications-title">Publications</h2>
     </div>

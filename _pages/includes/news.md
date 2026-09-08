@@ -1,6 +1,5 @@
 <section class="home-section reveal-section" id="news" aria-labelledby="news-title">
   <header class="section-heading">
-    <span class="section-heading__index">02</span>
     <div>
       <h2 id="news-title">News</h2>
     </div>

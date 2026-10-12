@@ -5,18 +5,10 @@
     </div>
   </header>
 
-  <div class="timeline">
-    <article class="timeline-item">
-      <time>preparing</time>
-      <div><h3>preparing</h3><p>preparing</p></div>
-    </article>
-    <article class="timeline-item">
-      <time>preparing</time>
-      <div><h3>preparing</h3><p>preparing</p></div>
-    </article>
-    <article class="timeline-item">
-      <time>preparing</time>
-      <div><h3>preparing</h3><p>preparing</p></div>
-    </article>
-  </div>
+  <ul class="education-list news-list">
+    <li>
+      <time>2026.08.26</time>
+      <span>The start of the dream</span>
+    </li>
+  </ul>
 </section>

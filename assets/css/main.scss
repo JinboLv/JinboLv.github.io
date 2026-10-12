@@ -158,8 +158,8 @@ h1:before, .anchor:before {
   --surface-solid: #141c31;
   --surface-soft: #182239;
   --ink: #edf2ff;
-  --ink-soft: #abb7cc;
-  --ink-faint: #75839c;
+  --ink-soft: #bdc8dc;
+  --ink-faint: #9daac2;
   --line: rgba(214, 224, 255, 0.11);
   --line-strong: rgba(214, 224, 255, 0.2);
   --brand: #7894ff;
@@ -173,6 +173,44 @@ h1:before, .anchor:before {
   --nav-shadow: rgba(0, 0, 0, 0.3);
   --shadow-sm: 0 12px 36px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 28px 80px rgba(0, 0, 0, 0.32);
+}
+
+/* Keep reading links and small text legible on dark surfaces. */
+[data-theme="dark"] .page__content p a:not(.button) {
+  color: #a9bdff;
+}
+
+[data-theme="dark"] .page__content p a:not(.button):visited {
+  color: #bcadff;
+}
+
+[data-theme="dark"] .page__content p a:not(.button):hover,
+[data-theme="dark"] .page__content p a:not(.button):focus-visible {
+  color: #d3dfff;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+[data-theme="dark"] .button--primary {
+  color: var(--site-bg) !important;
+}
+
+[data-theme="dark"] .back-to-top,
+[data-theme="dark"] .skip-link {
+  color: var(--site-bg);
+}
+
+[data-theme="dark"] .contact-panel p:last-child {
+  color: #fff;
+}
+
+[data-theme="dark"] a:focus-visible,
+[data-theme="dark"] button:focus-visible {
+  outline-color: var(--brand);
+}
+
+[data-theme="dark"] ::selection {
+  color: var(--site-bg);
 }
 
 html {
@@ -211,23 +249,35 @@ select { font-family: inherit; }
 
 time { font-variant-numeric: tabular-nums; }
 
-/* A native cross-fade makes theme changes feel continuous instead of abrupt. */
+/* Keep the old page opaque while the complete new theme gently fades over it. */
+::view-transition-group(root) { animation: none; }
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.48s;
-  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   mix-blend-mode: normal;
 }
 
-::view-transition-old(root) { animation-name: theme-fade-out; }
-::view-transition-new(root) { animation-name: theme-fade-in; }
+::view-transition-old(root) { animation: none; }
+::view-transition-new(root) {
+  animation: theme-fade-in 0.65s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+html.theme-snapshot,
+html.theme-snapshot *,
+html.theme-snapshot *::before,
+html.theme-snapshot *::after {
+  transition: none !important;
+}
 
 /* Fallback for browsers without the View Transitions API. */
+html.theme-transitioning,
 html.theme-transitioning *,
 html.theme-transitioning *::before,
 html.theme-transitioning *::after {
-  transition-duration: 0.48s !important;
-  transition-timing-function: ease !important;
+  transition-property: color, background-color, border-color, box-shadow, fill, stroke, opacity, transform !important;
+  transition-duration: 0.65s !important;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-delay: 0s !important;
 }
 
 ::selection {
@@ -1190,6 +1240,7 @@ button:focus-visible {
 .page__content .education-list li {
   position: relative;
   display: grid;
+  align-items: center;
   grid-template-columns: 8.5rem minmax(0, 1fr);
   gap: 0.9rem;
   margin: 0;
@@ -1206,10 +1257,11 @@ button:focus-visible {
 .page__content .education-list li::before {
   content: "";
   position: absolute;
-  top: 1.78rem;
+  top: 50%;
   left: 1.15rem;
   width: 0.36rem;
   height: 0.36rem;
+  transform: translateY(-50%);
   border-radius: 50%;
   background: var(--brand);
   box-shadow: 0 0 0 4px var(--brand-soft);
@@ -1223,7 +1275,7 @@ button:focus-visible {
 .education-list time {
   color: var(--brand);
   font-size: var(--content-meta-size);
-  font-style: italic;
+  font-style: normal;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -1359,8 +1411,7 @@ button:focus-visible {
 @keyframes item-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes glow-float { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(-2rem, 2rem, 0) scale(1.08); } }
 @keyframes status-pulse { 0%, 100% { box-shadow: 0 0 0 4px rgba(63,207,142,0.1); } 50% { box-shadow: 0 0 0 7px rgba(63,207,142,0.02); } }
-@keyframes theme-fade-out { to { opacity: 0; filter: saturate(0.92); } }
-@keyframes theme-fade-in { from { opacity: 0; filter: saturate(0.92); } }
+@keyframes theme-fade-in { from { opacity: 0; } to { opacity: 1; } }
 
 /* Tablet */
 @media (max-width: 1040px) {

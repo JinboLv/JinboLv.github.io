@@ -11,6 +11,7 @@
   var menu = document.getElementById('site-menu');
   var masthead = document.getElementById('masthead');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var themeTransitionRunning = false;
   var ticking = false;
 
   function syncLayoutMetrics() {
@@ -45,27 +46,50 @@
     if (themeMeta) themeMeta.setAttribute('content', theme === 'dark' ? '#0b1020' : '#f5f7fb');
   }
 
+  function finishThemeTransition() {
+    root.classList.remove('theme-snapshot', 'theme-transitioning');
+    themeTransitionRunning = false;
+  }
+
+  function animateThemeChange(applyTheme) {
+    if (reduceMotion) {
+      applyTheme();
+      return;
+    }
+
+    themeTransitionRunning = true;
+    if (document.startViewTransition) {
+      // Capture complete themes; element color transitions would blur the endpoints.
+      root.classList.add('theme-snapshot');
+      try {
+        var transition = document.startViewTransition(applyTheme);
+        transition.finished.then(finishThemeTransition, finishThemeTransition);
+        return;
+      } catch (error) {
+        root.classList.remove('theme-snapshot');
+      }
+    }
+
+    root.classList.add('theme-transitioning');
+    // Let the browser apply transition properties before changing the colors.
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        applyTheme();
+        window.setTimeout(finishThemeTransition, 700);
+      });
+    });
+  }
+
   if (themeToggle) {
     themeToggle.addEventListener('click', function () {
+      if (themeTransitionRunning) return;
       var nextTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       var applyTheme = function () {
         setTheme(nextTheme);
         try { localStorage.setItem('site-theme', nextTheme); } catch (error) {}
       };
 
-      if (!reduceMotion && document.startViewTransition) {
-        document.startViewTransition(applyTheme);
-      } else if (!reduceMotion) {
-        root.classList.add('theme-transitioning');
-        window.requestAnimationFrame(function () {
-          applyTheme();
-          window.setTimeout(function () {
-            root.classList.remove('theme-transitioning');
-          }, 520);
-        });
-      } else {
-        applyTheme();
-      }
+      animateThemeChange(applyTheme);
     });
   }
 

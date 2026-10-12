@@ -13,7 +13,7 @@ baidu_site_verification:
 author:
   name: "Jinbo Lv"
   avatar: "/assets/images/ljb.jpg"
-  bio: "Master, School of Vehicle and Mobility, Tsinghua University"
+  bio: "School of Vehicle and Mobility, Tsinghua University"
   location: "Beijing, China"
   affiliation: "Tsinghua University"
   email: "jinbo2277@gmail.com"
@@ -33,6 +33,10 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - preview.cmd
+  - stop-preview.cmd
+  - run_server.sh
+  - _preview
   - vendor
 
 encoding: "utf-8"

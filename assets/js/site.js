@@ -12,7 +12,66 @@
   var masthead = document.getElementById('masthead');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var themeTransitionRunning = false;
+  var scrollAnimationFrame = 0;
   var ticking = false;
+
+  function cancelAnimatedScroll() {
+    if (scrollAnimationFrame) window.cancelAnimationFrame(scrollAnimationFrame);
+    scrollAnimationFrame = 0;
+  }
+
+  function scrollToPosition(top, onComplete) {
+    cancelAnimatedScroll();
+    var start = window.scrollY || root.scrollTop;
+    var maximum = Math.max(0, root.scrollHeight - window.innerHeight);
+    var destination = Math.max(0, Math.min(top, maximum));
+    var distance = destination - start;
+
+    // Navigation animation is explicitly requested by the user's click.
+    if (Math.abs(distance) < 1) {
+      window.scrollTo({ top: destination, behavior: 'instant' });
+      if (onComplete) onComplete();
+      return;
+    }
+
+    var duration = Math.min(900, Math.max(400, Math.abs(distance) * 0.45));
+    var startTime = null;
+    function step(time) {
+      if (startTime === null) startTime = time;
+      var progress = Math.min((time - startTime) / duration, 1);
+      var eased = progress < 0.5 ? 4 * progress * progress * progress :
+        1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo({ top: start + distance * eased, behavior: 'instant' });
+      if (progress < 1) {
+        scrollAnimationFrame = window.requestAnimationFrame(step);
+      } else {
+        scrollAnimationFrame = 0;
+        if (onComplete) onComplete();
+      }
+    }
+    scrollAnimationFrame = window.requestAnimationFrame(step);
+  }
+
+  function sectionScrollPosition(section) {
+    // Layout offsets remain stable while section reveal transforms animate.
+    var top = 0;
+    for (var element = section; element; element = element.offsetParent) {
+      top += element.offsetTop;
+    }
+    var padding = parseFloat(window.getComputedStyle(root).scrollPaddingTop) || 0;
+    var headerOffset = masthead ? masthead.getBoundingClientRect().height + 16 : 0;
+    return top - Math.max(padding, headerOffset);
+  }
+
+  function focusSection(section) {
+    if (!section.hasAttribute('tabindex')) {
+      section.setAttribute('tabindex', '-1');
+      section.addEventListener('blur', function () {
+        section.removeAttribute('tabindex');
+      }, { once: true });
+    }
+    section.focus({ preventScroll: true });
+  }
 
   function syncLayoutMetrics() {
     if (!masthead) return;
@@ -95,7 +154,7 @@
 
   if (backToTop) {
     backToTop.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      scrollToPosition(0);
     });
   }
 
@@ -111,7 +170,7 @@
       if (window.location.hash) {
         window.history.replaceState(null, '', window.location.pathname + window.location.search);
       }
-      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      scrollToPosition(0);
     });
   }
 
@@ -135,7 +194,23 @@
     });
 
     menu.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', closeMenu);
+      link.addEventListener('click', function (event) {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey ||
+            event.ctrlKey || event.shiftKey || event.altKey ||
+            link.target === '_blank' || link.hasAttribute('download')) return;
+
+        var href = link.getAttribute('href');
+        var section = href && href.charAt(0) === '#' ?
+          document.getElementById(href.slice(1)) : null;
+        closeMenu();
+        if (!section) return;
+
+        event.preventDefault();
+        if (window.location.hash !== href) window.history.pushState(null, '', href);
+        scrollToPosition(sectionScrollPosition(section), event.detail === 0 ? function () {
+          if (document.activeElement === link) focusSection(section);
+        } : null);
+      });
     });
 
     document.addEventListener('click', function (event) {
@@ -180,6 +255,14 @@
   });
 
   window.addEventListener('scroll', requestScrollUpdate, { passive: true });
+  window.addEventListener('wheel', cancelAnimatedScroll, { passive: true });
+  window.addEventListener('touchstart', cancelAnimatedScroll, { passive: true });
+  window.addEventListener('pointerdown', cancelAnimatedScroll, { passive: true });
+  document.addEventListener('keydown', function (event) {
+    if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].indexOf(event.key) !== -1) {
+      cancelAnimatedScroll();
+    }
+  });
   window.addEventListener('resize', function () {
     if (window.innerWidth > 820) closeMenu();
     syncLayoutMetrics();

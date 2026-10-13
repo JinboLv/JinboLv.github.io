@@ -5,8 +5,6 @@
 {% endif %}
 
 <aside itemscope itemtype="https://schema.org/Person" class="profile-card">
-  <div class="profile-card__topline"><span></span> Academic Profile</div>
-
   {% if author.avatar and author.avatar != "" %}
     <div class="profile-card__avatar">
       <img src="{{ author.avatar | relative_url }}" alt="{{ author.name }}">
@@ -19,7 +17,7 @@
 
   <div class="profile-card__identity">
     <h2 itemprop="name">{{ author.name | default: "preparing" }}</h2>
-    {% if author.bio %}<p itemprop="description">{{ author.bio }}</p>{% else %}<p>preparing</p>{% endif %}
+    {% if author.bio %}<p itemprop="description">{{ author.bio | escape | newline_to_br }}</p>{% else %}<p>preparing</p>{% endif %}
   </div>
 
   <dl class="profile-card__meta">

@@ -14,6 +14,7 @@ redirect_from:
     <p class="hero-intro">I'm Jinbo Lv, a master's student at Tsinghua University, exploring autonomous driving and computer vision.</p>
     <div class="hero-links" aria-label="Profile and contact links">
       {% if site.author.github %}<a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>{% endif %}
+      {% if site.author.huggingface %}<a href="https://huggingface.co/{{ site.author.huggingface }}" target="_blank" rel="noopener noreferrer">Hugging Face <span aria-hidden="true">↗</span></a>{% endif %}
       {% if site.author.linkedin %}<a href="{{ site.author.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>{% endif %}
       {% if site.author.orcid %}<a href="{{ site.author.orcid }}" target="_blank" rel="noopener noreferrer">ORCID <span aria-hidden="true">↗</span></a>{% endif %}
       {% if site.author.googlescholar %}<a href="{{ site.author.googlescholar }}" target="_blank" rel="noopener noreferrer">Google Scholar <span aria-hidden="true">↗</span></a>{% endif %}
